@@ -5,7 +5,7 @@ export const RowEmpty = () => {
   return (
     <div className={styles.row}>
       {Array.from({length: 5}).map((_, i) => (
-        <Box key={i} letter="" />
+        <Box key={i} letter="" status="empty" />
       ))}
     </div>
   )

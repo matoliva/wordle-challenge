@@ -1,5 +1,5 @@
 :root {
-  --main-bg-color: #323232;
+  --main-bg-color: #121213;
 }
 
 * {
@@ -13,7 +13,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #323232;
+  background-color: var(--main-bg-color);
 }
 
 code {

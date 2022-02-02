@@ -31,7 +31,7 @@ function App() {
       const wordSelected = data[getRandomInt(8000)]
       setWordOfTheDay(wordSelected.toUpperCase())
     }
-  }, [])
+  }, [data]) //TODO: Should I set data dependency?
 
   const handleKeyDown = (event: KeyboardEvent) => {
     const letter = event.key.toUpperCase()

@@ -28,7 +28,7 @@ function App() {
 
   useEffect(() => {
     if (data.length > 0) {
-      const wordSelected = data[getRandomInt(8800)]
+      const wordSelected = data[getRandomInt(8000)]
       setWordOfTheDay(wordSelected.toUpperCase())
     }
   }, [])

@@ -6,7 +6,9 @@ export const useFetch = (url: string) => {
   useEffect(() => {
     fetch(url)
       .then(res => res.json())
-      .then(data => setData(data.filter((word: string) => word.length === 5)))
+      .then(data =>
+        setData(data.filter((word: string) => word.trim().length === 5)),
+      )
       .catch(err => console.log(err))
   }, [])
 

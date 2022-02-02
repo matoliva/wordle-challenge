@@ -9,6 +9,7 @@ import {GameStatus} from './types'
 
 import styles from './main.module.css'
 import {Modal} from './components/Modal'
+import {useFetch} from './hooks/useFetch'
 
 function App() {
   const [wordOfTheDay, setWordOfTheDay] = useState('')
@@ -19,9 +20,18 @@ function App() {
 
   const [toggleModal, setToggleModal] = useState<boolean>(false)
 
+  const {data} = useFetch('https://random-word-api.herokuapp.com/all')
+
+  const getRandomInt = (max: number) => {
+    return Math.floor(Math.random() * max)
+  }
+
   useEffect(() => {
-    setWordOfTheDay('MAGIC')
-  })
+    if (data.length > 0) {
+      const wordSelected = data[getRandomInt(8800)]
+      setWordOfTheDay(wordSelected.toUpperCase())
+    }
+  }, [])
 
   const handleKeyDown = (event: KeyboardEvent) => {
     const letter = event.key.toUpperCase()
@@ -72,11 +82,14 @@ function App() {
       return
     }
 
-    //TODO: check if word exists in dictionary
-
-    setCompletedWords(old => [...old, currentWord])
-    setTurn(old => old + 1)
-    setCurrentWord('')
+    if (!data.includes(currentWord.toLocaleLowerCase())) {
+      alert('The word does not exist')
+      return
+    } else {
+      setCompletedWords(old => [...old, currentWord])
+      setTurn(old => old + 1)
+      setCurrentWord('')
+    }
   }
 
   useWindow('keydown', handleKeyDown)

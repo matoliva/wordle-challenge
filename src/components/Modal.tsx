@@ -19,7 +19,7 @@ export const Modal = ({gameStatus, played, toggle}: Props) => {
           <div>{status}</div>
           <div>{`you tried ${played}`}</div>
         </div>
-        <h2>Next wordle in each refresh</h2>
+        <h2>A new word in each refresh</h2>
       </div>
     </div>
   )

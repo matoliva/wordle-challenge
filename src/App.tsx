@@ -8,6 +8,7 @@ import {useWindow} from './hooks/useWindow'
 import {GameStatus} from './types'
 
 import styles from './main.module.css'
+import {Modal} from './components/Modal'
 
 function App() {
   const [wordOfTheDay, setWordOfTheDay] = useState('')
@@ -15,6 +16,8 @@ function App() {
   const [turn, setTurn] = useState<number>(1)
   const [completedWords, setCompletedWords] = useState<string[]>([])
   const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.Playing)
+
+  const [toggleModal, setToggleModal] = useState<boolean>(false)
 
   useEffect(() => {
     setWordOfTheDay('MAGIC')
@@ -58,12 +61,14 @@ function App() {
     if (currentWord === wordOfTheDay) {
       setCompletedWords(old => [...old, currentWord])
       setGameStatus(GameStatus.Won)
+      setToggleModal(!toggleModal)
       return
     }
 
     if (turn === 6) {
       setCompletedWords(old => [...old, currentWord])
       setGameStatus(GameStatus.Lost)
+      setToggleModal(!toggleModal)
       return
     }
 
@@ -76,9 +81,13 @@ function App() {
 
   useWindow('keydown', handleKeyDown)
 
+  const toogle = () => {
+    setToggleModal(!toggleModal)
+  }
+
   return (
     <main className={styles.main}>
-      <h1 style={{color: 'white'}}>Wordle</h1>
+      <h1 style={{color: 'white', paddingBottom: '16px'}}>Wordle</h1>
       <div>
         {completedWords.map((word, i) => (
           <RowComplete key={i} word={word} solution={wordOfTheDay} />
@@ -93,6 +102,13 @@ function App() {
         ))}
       </div>
       <Keyboard handleClick={onKeyPressed} />
+      {toggleModal ? (
+        <Modal
+          gameStatus={gameStatus}
+          played={completedWords.length}
+          toggle={toogle}
+        />
+      ) : null}
     </main>
   )
 }

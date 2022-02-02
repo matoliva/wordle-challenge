@@ -1,0 +1,45 @@
+.key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 43px;
+  height: 58px;
+  background-color: #808384;
+  cursor: pointer;
+  border-radius: 2px;
+  padding: 4px;
+  color: white;
+  font-weight: bold;
+}
+
+.specialKey {
+  width: 66px;
+  height: 58px;
+}
+
+.key:hover {
+  transform: scale(1.1);
+}
+
+.correct {
+  background-color: #50a550;
+  border-color: #50a550;
+}
+
+.present {
+  background-color: #c9ca73;
+  border-color: #c9ca73;
+}
+
+.absent {
+  background-color: #3a3a3c;
+  border-color: #3a3a3c;
+}
+
+.empty {
+  background-color: #808384;
+}
+
+.edit {
+  border: 2px solid #adabab;
+}

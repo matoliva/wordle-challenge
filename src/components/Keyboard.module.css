@@ -1,0 +1,21 @@
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+}
+
+.keyboardRow {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.keyboardMiddleRow {
+  justify-content: center;
+}
+
+@media only screen and (max-width: 420px) {
+  .keyboard {
+    width: 100%;
+  }
+}

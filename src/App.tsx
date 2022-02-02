@@ -1,10 +1,13 @@
 import {useEffect, useState} from 'react'
+import {Keyboard} from './components/Keyboard'
 import {RowComplete} from './components/RowComplete'
 import {RowCurrent} from './components/RowCurrent'
 import {RowEmpty} from './components/RowEmpty'
 import {keys} from './constants'
 import {useWindow} from './hooks/useWindow'
 import {GameStatus} from './types'
+
+import styles from './main.module.css'
 
 function App() {
   const [wordOfTheDay, setWordOfTheDay] = useState('')
@@ -14,17 +17,21 @@ function App() {
   const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.Playing)
 
   useEffect(() => {
-    setWordOfTheDay('magic')
+    setWordOfTheDay('MAGIC')
   })
 
   const handleKeyDown = (event: KeyboardEvent) => {
     const letter = event.key.toUpperCase()
 
+    if (gameStatus !== GameStatus.Playing) {
+      return
+    }
+
     onKeyPressed(letter)
   }
 
   const onKeyPressed = (key: string) => {
-    if (key === 'ENTER' && currentWord.length === 5) {
+    if (key === 'ENTER' && currentWord.length === 5 && turn <= 6) {
       onEnter()
     }
 
@@ -70,15 +77,23 @@ function App() {
   useWindow('keydown', handleKeyDown)
 
   return (
-    <div>
-      <RowCurrent word={currentWord} />
-      <RowEmpty />
-      <RowEmpty />
-      <RowEmpty />
-      <RowEmpty />
-      <RowEmpty />
-      {/* <RowComplete word="amzic" solution={wordOfTheDay} /> */}
-    </div>
+    <main className={styles.main}>
+      <h1 style={{color: 'white'}}>Wordle</h1>
+      <div>
+        {completedWords.map((word, i) => (
+          <RowComplete key={i} word={word} solution={wordOfTheDay} />
+        ))}
+
+        {gameStatus === GameStatus.Playing ? (
+          <RowCurrent word={currentWord} />
+        ) : null}
+
+        {Array.from(Array(6 - turn)).map((_, i) => (
+          <RowEmpty key={i} />
+        ))}
+      </div>
+      <Keyboard handleClick={onKeyPressed} />
+    </main>
   )
 }
 

@@ -1,7 +1,5 @@
 .row {
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 4px;
   margin: 4px 0px;
 }

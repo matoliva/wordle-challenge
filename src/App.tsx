@@ -100,7 +100,7 @@ function App() {
 
   return (
     <main className={styles.main}>
-      <h1 style={{color: 'white', paddingBottom: '16px'}}>Wordle</h1>
+      <h1>Wordle</h1>
       <div>
         {completedWords.map((word, i) => (
           <RowComplete key={i} word={word} solution={wordOfTheDay} />
